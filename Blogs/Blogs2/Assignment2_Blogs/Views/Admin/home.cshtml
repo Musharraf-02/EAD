@@ -1,0 +1,53 @@
+﻿@using Assignment2_Blogs.Models
+@model List<User>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container text-center mt-4">
+
+        <h1 class="bg-dark text-white p-4 rounded-pill">Admin Panel</h1>
+        <br />
+        <div style="text-align:center;"><a class="btn btn-outline-dark mr-2" asp-controller="Admin" asp-action="addUser">Add User</a><a class="btn btn-outline-dark ml-2" asp-controller="Admin" asp-action="logout">Logout</a></div>
+        <br />
+        @if (Model.Count == 0)
+        {
+            <h2 style="text-align:center">There are currently no users registered yet.</h2>
+        }
+        else
+        { <div class="row">
+                <div class="col-12">
+                    <div style="height: 600px;overflow: scroll;">
+                        <table class="table table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Delete/Update</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.Count; i++)
+                                {
+                                    <tr>
+                                        <td>@Model[i].userId</td>
+                                        <td>@Model[i].username</td>
+                                        <td>@Model[i].email</td>
+                                        <td><a class="btn btn-outline-danger mr-2" asp-controller="Admin" asp-action="deleteUser" asp-route-id="@Model[i].userId">Delete</a><a asp-controller="Admin" asp-action="updateUser" asp-route-id="@Model[i].userId" class="btn btn-outline-warning ml-2">Update</a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <br />
+                </div>
+            </div>
+        }
+    </div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Assignment2_Blogs.Models
+@model HomePageData
+<div class="container" style="margin-top:100px;">
+    <a asp-controller="Blog" asp-action="newPost" class="btn btn-primary">Create Post</a>
+    <br />
+    <br />
+    @if (Model.blogsList.Count == 0)
+    {
+        <div class="text-center">
+            <h1 style="color:lightslategray">No blogs posted yet.</h1>
+            <h2 style="color:deepskyblue">Be the first person to post your blog here.</h2>
+        </div>
+    }
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-12">
+            @for (int i = Model.blogsList.Count - 1; i >= 0; i--)
+            {
+                <div class="row" style="border:1px solid;border-color:lightgray;border-radius:5px;padding:15px">
+                    <div>
+                        @{
+                            var path = "/Images/" + Model.blogsList[i].photo + ".jpg";
+                        }
+                        <img src="@path" alt="Profile Picture" width="150" height="150" style="border-radius:50%;" />
+                    </div>
+                    <div class="col-10" >
+
+                        <div style="padding:10px;overflow:auto">
+                            <span style="color:deepskyblue">
+                                @Model.blogsList[i].username
+                            </span>
+                            <span style="color:grey">
+                                &emsp;@Model.blogsList[i].date.ToString("dddd, dd MMMM yyyy")
+                            </span>
+                            <hr>
+                            <h2>
+                                <a asp-controller="Blog" asp-action="openBlog" asp-route-id="@Model.blogsList[i].blogID">
+                                    @Model.blogsList[i].title
+                                </a>
+                            </h2>
+                            <p>
+                                @if (@Model.blogsList[i].deccription.Length >= 470)
+                                {
+                                    @Model.blogsList[i].deccription.Substring(0, 470)
+                                }
+                                else
+                                {
+                                    @Model.blogsList[i].deccription
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            }
+        </div>
+    </div>
+</div>

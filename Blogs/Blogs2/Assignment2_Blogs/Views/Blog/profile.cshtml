@@ -1,0 +1,74 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Assignment2_Blogs.Models
+@model UserProfile
+@{
+    var path = "/Images/" + Model.photoName + ".jpg";
+}
+<div class="container" style="margin-top:100px">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-12">
+            <div class="row">
+                <div>
+                    <img src="@path" width="150" height="150" style="border-radius:50%;" />
+                </div>
+                <div class="col-auto">
+                    <h1>@Model.username</h1>
+                </div>
+            </div>
+            <br />
+            <h3>Profile</h3>
+            <hr>
+            <form method="post" asp-controller="Blog" asp-action="profile" enctype="multipart/form-data">
+                <div>
+                    <div class="form-group">
+                        <label asp-for="username">Username*</label>
+                    </div>
+                    <input asp-for="username" class="form-control" />
+                    <span asp-validation-for="username"></span>
+                </div>
+                <br />
+                <div>
+                    <div class="form-group">
+                        <label asp-for="email">Email*</label>
+                    </div>
+                    <input asp-for="email" class="form-control" />
+                    <span asp-validation-for="email"></span>
+                </div>
+                <br />
+                <div>
+                    <div class="form-group">
+                        <label asp-for="photo">Image*</label>
+                        <br />
+                        <span>Currently: @Model.photoName .jpg</span>
+                        <br />
+                        <span>Change:</span>
+                    </div>
+                    <input asp-for="photo" />
+                </div>
+                <br />
+                <div>
+                    <div class="form-group">
+                        <label asp-for="password">Old Password*</label>
+                    </div>
+                    <input asp-for="password" class="form-control" />
+                    <span asp-validation-for="password"></span>
+                </div>
+                <br />
+                <div>
+                    <div class="form-group">
+                        <label asp-for="newPassword">New Password*</label>
+                    </div>
+                    <input type="password" class="form-control" asp-for="newPassword" />
+                    <span asp-validation-for="newPassword"></span>
+                    <div asp-validation-summary="ModelOnly" class="text-center">
+
+                    </div>
+                </div>
+                <br />
+                <button type="submit" class=" btn btn-outline-info">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
